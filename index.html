@@ -3,87 +3,251 @@
 <head>
 <title>The Scottish Play</title>
 <style>
-/* ... (Previous CSS) ... */
-#setup-area { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;}
-.player-setup { margin-bottom: 10px; }
+#dice {
+  font-size: 4em;
+  animation: roll 1s linear;
+}
+@keyframes roll {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr); 
+    gap: 10px;
+    border: 2px solid black;
+    width: 500px;
+    height: 300px;
+}
+.location {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    font-size:12px;
+}
+.player-pawn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block; /* To allow positioning next to player name */
+    margin-right: 5px; /* Space between pawn and name */
+}
+/* Styles for different players (add more as needed) */
+.player-pawn.Macbeth { background-color: red; }
+.player-pawn.Lady-Macbeth { background-color: purple; }
+.player-pawn.Banquo { background-color: green; }
+.player-pawn.Macduff { background-color: blue; }
+
+
 </style>
 </head>
 <body>
 <h1>The Scottish Play</h1>
 
-<div id="setup-area">
-    <div class="player-setup">
-        Player 1 Name: <input type="text" id="player1-name">
-        Character: <select id="player1-char">
-            <option value="Macbeth">Macbeth</option>
-            <option value="Lady Macbeth">Lady Macbeth</option>
-            <option value="Banquo">Banquo</option>
-            <option value="Macduff">Macduff</option>
-        </select>
+<div id="setup-area"></div>
+
+<div id="game-area" style="display:none;">
+    <div id="game-board"></div>
+    <div id="player-area"></div>
+    <div id="dice-roll">
+      <button onclick="rollDice()">Roll Dice</button>
+      <div id="dice"></div> <div id="dice-result"></div>
     </div>
-    <div class="player-setup">
-        Player 2 Name: <input type="text" id="player2-name">
-        Character: <select id="player2-char">
-            <option value="Macbeth">Macbeth</option>
-            <option value="Lady Macbeth">Lady Macbeth</option>
-            <option value="Banquo">Banquo</option>
-            <option value="Macduff">Macduff</option>
-        </select>
+    <div id="fate-deck">
+        <button onclick="drawFateCard()">Draw Fate Card</button>
+        <div id="fate-card-display"></div>
     </div>
-        <div class="player-setup">
-        Player 3 Name: <input type="text" id="player3-name">
-        Character: <select id="player3-char">
-            <option value="Macbeth">Macbeth</option>
-            <option value="Lady Macbeth">Lady Macbeth</option>
-            <option value="Banquo">Banquo</option>
-            <option value="Macduff">Macduff</option>
-        </select>
-    </div>
-        <div class="player-setup">
-        Player 4 Name: <input type="text" id="player4-name">
-        Character: <select id="player4-char">
-            <option value="Macbeth">Macbeth</option>
-            <option value="Lady Macbeth">Lady Macbeth</option>
-            <option value="Banquo">Banquo</option>
-            <option value="Macduff">Macduff</option>
-        </select>
-    </div>
-    <button onclick="startGame()">Start Game</button>
 </div>
 
 
-<div id="game-area">  </div>  </div>
-  <div id="game-board"> </div>
-  <div id="player-area"> </div>
-  <div id="fate-deck">
-    <button onclick="drawFateCard()">Draw Fate Card</button>
-    <div id="fate-card-display"></div>
-  </div>
-
-  <div id="dice-roll">
-    <button onclick="rollDice()">Roll Dice</button>
-    <div id="dice-result"></div>
-  </div>
-
 <script>
-// ... (Previous JavaScript code)
+const locations = {
+    Inverness: { name: "Inverness", x: 0, y: 0 },  // Example coordinates, adjust to your grid
+    Dunsinane: { name: "Dunsinane", x: 1, y: 0 },
+    Forres: { name: "Forres", x: 2, y: 0 },
+    // ... other locations
+    Glamis: { name: "Glamis", x: 3, y: 2} // Example, adjust to your grid
+
+};
+
+let players = [];
+let currentPlayerIndex = 0;
+let fateDeck = [];
 
 function startGame() {
-    players = [];
-    for(let i = 1; i <= 4; i++) {
-        const name = document.getElementById(`player${i}-name`).value;
+    players = []; // Clear any previous players
+    for (let i = 1; i <= 4; i++) {
+        const playerName = document.getElementById(`player${i}-name`).value;
         const character = document.getElementById(`player${i}-char`).value;
-        if (name) { // Only add players if a name is entered
-            players.push({ name: name, character: character, location: "Inverness", influence: 10 });
+        if (playerName) {  // Only add player if name is provided
+            players.push({
+                name: playerName,
+                character: character,
+                location: "Inverness", // Default starting location
+                influence: 0
+            });
         }
     }
+    document.getElementById("setup-area").style.display = "none";
+    document.getElementById("game-area").style.display = "block";
+    initializeGame();
 
-    document.getElementById('setup-area').style.display = 'none';  // Hide setup
-    document.getElementById('game-area').style.display = 'block'; // Show game
-    initializeGame(); // Set up the board and display initial game state
 }
 
-// ... (Rest of the JavaScript code)
+function rollDice() {
+    const dice = document.getElementById("dice");
+    dice.textContent = "🎲";
+    dice.style.animation = "roll 1s linear";
+    setTimeout(() => {
+        const roll = Math.floor(Math.random() * 6) + 1;
+        dice.textContent = roll;
+        dice.style.animation = "";
+        document.getElementById('dice-result').textContent = "You rolled: " + roll;
+        movePlayer(roll);
+    }, 1000);
+}
+
+function movePlayer(roll) {
+    const currentPlayer = players[currentPlayerIndex];
+    const currentLocation = locations[currentPlayer.location];
+
+    let newX = currentLocation.x;
+    let newY = currentLocation.y;
+
+    // Example movement logic (adapt to your board layout)
+    newX = (newX + roll) % 4;  // Assuming 4 columns, wrap around
+
+
+
+    // Find the location key that matches the new coordinates.
+    let newLocationKey = Object.keys(locations).find(key => locations[key].x === newX && locations[key].y === newY );
+
+    if(newLocationKey){
+        currentPlayer.location = newLocationKey;
+    } else {
+        console.log("Invalid Move"); // or handle differently
+        return; // Don't update player display if move is invalid.
+    }
+
+    updatePlayerDisplay();
+    nextPlayer(); // Advance to the next player after movement
+}
+
+
+fateDeck = [
+    { text: "The Witches' Prophecy: Gain 3 influence.", effect: (player) => { player.influence += 3;} },
+    { text: "Duncan's Murder: All players lose 1 influence, Macbeth gains 2.", effect: () => { 
+        players.forEach(p => p.influence--);
+        const macbeth = players.find(p => p.character === "Macbeth");
+        if(macbeth) macbeth.influence += 2;
+     } },
+    // ... more fate cards ...
+];
+
+function shuffle(array) { // Fisher-Yates shuffle
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+
+function drawFateCard() {
+    const card = fateDeck.pop();
+    if (!card) {
+        // Reshuffle deck if empty (optional)
+        fateDeck = [...fateDeckDiscard];
+        fateDeckDiscard = [];
+        shuffle(fateDeck);
+
+        if (!fateDeck.length) return; //  Still no cards
+        card = fateDeck.pop();
+    }
+    document.getElementById("fate-card-display").textContent = card.text;
+
+    card.effect(players[currentPlayerIndex]);  // Apply card effect to current player
+    updatePlayerDisplay();
+
+    fateDeckDiscard.push(card); // Add to discard pile.
+    nextPlayer();
+}
+
+let fateDeckDiscard = [];
+
+
+function initializeGame() {
+    shuffle(fateDeck);
+    createBoard();
+    updatePlayerDisplay();
+}
+
+function createBoard() {
+    const board = document.getElementById("game-board");
+    for (const locationKey in locations) {
+        const location = locations[locationKey];
+        const locationDiv = document.createElement("div");
+        locationDiv.id = `location-${locationKey}`;
+        locationDiv.className = "location";
+        locationDiv.textContent = location.name;
+        locationDiv.style.gridColumn = location.x + 1; // grid columns start at 1
+        locationDiv.style.gridRow = location.y + 1; // grid rows start at 1
+        board.appendChild(locationDiv);
+    }
+}
+
+
+
+function updatePlayerDisplay() {
+  const playerArea = document.getElementById("player-area");
+  playerArea.innerHTML = ""; // Clear previous player info
+
+  players.forEach(player => {
+      const playerDiv = document.createElement("div");
+      const pawn = document.createElement("span");
+      pawn.className = `player-pawn ${player.character.replace(" ", "-")}`; // Use character as class
+
+      playerDiv.innerHTML = `<span>${pawn.outerHTML} ${player.name} (${player.character}) - Location: ${player.location} - Influence: ${player.influence}</span>`;
+      playerArea.appendChild(playerDiv);
+  });
+
+  // Highlight current player
+  if (players.length > 0 && currentPlayerIndex !== -1 ) {  // Check to prevent errors
+    playerArea.children[currentPlayerIndex].style.fontWeight = 'bold';
+
+  }
+
+
+}
+
+
+// Setup area HTML generation
+const setupArea = document.getElementById("setup-area");
+for (let i = 1; i <= 4; i++) {
+  const playerSetupDiv = document.createElement("div");
+  playerSetupDiv.className = "player-setup";
+  playerSetupDiv.innerHTML = `
+      Player ${i} Name: <input type="text" id="player${i}-name">
+      Character: <select id="player${i}-char">
+          <option value="Macbeth">Macbeth</option>
+          <option value="Lady Macbeth">Lady Macbeth</option>
+          <option value="Banquo">Banquo</option>
+          <option value="Macduff">Macduff</option>
+      </select>
+  `;
+  setupArea.appendChild(playerSetupDiv);
+}
+const startButton = document.createElement('button');
+startButton.textContent = "Start Game";
+startButton.onclick = startGame;
+setupArea.appendChild(startButton);
+
+function nextPlayer() {
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.length; // Wrap around to the first player
+    updatePlayerDisplay(); // Update display to show the next player's turn
+}
+
+
 </script>
 
 </body>
