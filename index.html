@@ -3,102 +3,124 @@
 <head>
 <title>The Scottish Play</title>
 <style>
-#dice {
-  font-size: 4em;
-  animation: roll 1s linear;
-}
-@keyframes roll {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-#game-board {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr); 
-    gap: 10px;
-    border: 2px solid black;
-    width: 500px;
-    height: 300px;
-}
-.location {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-    font-size:12px;
-}
-.player-pawn {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: inline-block; /* To allow positioning next to player name */
-    margin-right: 5px; /* Space between pawn and name */
-}
-/* Styles for different players (add more as needed) */
+#game-board { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); gap: 5px; border: 1px solid #ccc; width: 400px; height: 300px;}
+.location { border: 1px solid #999; padding: 10px; text-align: center; font-size: 14px; position: relative; }
+.player-pawn { position: absolute; width: 20px; height: 20px; border-radius: 50%; top: 5px; left: 5px; transition: left 0.5s, top 0.5s; } /* Add transition for smooth movement */
 .player-pawn.Macbeth { background-color: red; }
 .player-pawn.Lady-Macbeth { background-color: purple; }
 .player-pawn.Banquo { background-color: green; }
 .player-pawn.Macduff { background-color: blue; }
-
-
+.player-pawn.Duncan { background-color: gold; }
+#fate-card-display img { max-width: 100px; max-height: 100px; }
+#messages { margin-top: 20px; }
 </style>
 </head>
 <body>
 <h1>The Scottish Play</h1>
 
-<div id="setup-area"></div>
+<div id="setup-area">
+    <button onclick="randomizeRoles()">Randomize Roles</button>
+    <div id="player-setup-inputs"></div>
+</div>
 
 <div id="game-area" style="display:none;">
     <div id="game-board"></div>
     <div id="player-area"></div>
     <div id="dice-roll">
-      <button onclick="rollDice()">Roll Dice</button>
-      <div id="dice"></div> <div id="dice-result"></div>
+        <button onclick="rollDice()">Roll Dice</button>
+        <span id="dice"></span> <span id="dice-result"></span>
     </div>
     <div id="fate-deck">
         <button onclick="drawFateCard()">Draw Fate Card</button>
         <div id="fate-card-display"></div>
     </div>
+    <div id="messages"></div>
+    <button onclick="resetGame()">Reset Game</button>
 </div>
-
 
 <script>
 const locations = {
-    Inverness: { name: "Inverness", x: 0, y: 0 },  // Example coordinates, adjust to your grid
+    Inverness: { name: "Inverness", x: 0, y: 0, effect: (player) => { player.influence++; displayMessage(`${player.name} gained influence in Inverness.`); } },
     Dunsinane: { name: "Dunsinane", x: 1, y: 0 },
     Forres: { name: "Forres", x: 2, y: 0 },
-    // ... other locations
-    Glamis: { name: "Glamis", x: 3, y: 2} // Example, adjust to your grid
-
+    Cawdor: { name: "Cawdor", x: 3, y: 0, effect: (player) => { player.influence++; displayMessage(`${player.name} gained influence in Cawdor.`); } },
+    BirnamWood: { name: "Birnam Wood", x: 0, y: 1 },
+    Fife: { name: "Fife", x: 1, y: 1, effect: (player) => { if (player.character === "Macduff") { player.influence += 2; displayMessage("Macduff gains 2 influence in Fife."); } } },
+    England: { name: "England", x: 2, y: 1 },
+    Heath: { name: "Heath", x: 3, y: 1, effect: (player) => { drawFateCard(); drawFateCard(); displayMessage(`${player.name} encountered the Witches!`); } },
+    Glamis: { name: "Glamis", x: 0, y: 2 }
 };
 
 let players = [];
 let currentPlayerIndex = 0;
 let fateDeck = [];
+let fateDeckDiscard = [];
+
+const characterData = {
+    Macbeth: { color: "red", startingInfluence: 0 },
+    "Lady Macbeth": { color: "purple", startingInfluence: 0 },
+    Banquo: { color: "green", startingInfluence: 0 },
+    Macduff: { color: "blue", startingInfluence: 0 },
+    Duncan: { color: "gold", startingInfluence: 2 }
+};
+
+function randomizeRoles() {
+    const characters = Object.keys(characterData);
+    shuffle(characters);
+    const selects = document.querySelectorAll("#setup-area select");
+    selects.forEach((select, index) => {
+        select.value = characters[index] || "";
+    });
+}
 
 function startGame() {
-    players = []; // Clear any previous players
+    players = [];
+    const playerNames = [];
+    const playerCharacters = [];
+    let validSetup = true;
+
     for (let i = 1; i <= 4; i++) {
         const playerName = document.getElementById(`player${i}-name`).value;
         const character = document.getElementById(`player${i}-char`).value;
-        if (playerName) {  // Only add player if name is provided
-            players.push({
-                name: playerName,
-                character: character,
-                location: "Inverness", // Default starting location
-                influence: 0
-            });
+
+        if (playerName) {
+            if (playerNames.includes(playerName)) {
+                displayMessage("Error: Player names must be unique.");
+                validSetup = false;
+                break;
+            }
+            playerNames.push(playerName);
+
+            if (playerCharacters.includes(character)) {
+                displayMessage("Error: Player characters must be unique.");
+                validSetup = false;
+                break;
+            }
+            playerCharacters.push(character);
+
+            const startingInfluence = characterData[character]?.startingInfluence || 0;
+            players.push({ name: playerName, character, location: "Inverness", influence: startingInfluence });
         }
     }
-    document.getElementById("setup-area").style.display = "none";
-    document.getElementById("game-area").style.display = "block";
-    initializeGame();
 
+
+    if (players.length < 2) {
+        displayMessage("Error: At least 2 players are required.");
+        validSetup = false;
+    }
+
+    if (validSetup) {
+        document.getElementById("setup-area").style.display = "none";
+        document.getElementById("game-area").style.display = "block";
+        initializeGame();
+    }
 }
 
 function rollDice() {
     const dice = document.getElementById("dice");
     dice.textContent = "🎲";
     dice.style.animation = "roll 1s linear";
+
     setTimeout(() => {
         const roll = Math.floor(Math.random() * 6) + 1;
         dice.textContent = roll;
@@ -111,70 +133,104 @@ function rollDice() {
 function movePlayer(roll) {
     const currentPlayer = players[currentPlayerIndex];
     const currentLocation = locations[currentPlayer.location];
-
     let newX = currentLocation.x;
-    let newY = currentLocation.y;
+    let newX = (newX + roll) % 4;
 
-    // Example movement logic (adapt to your board layout)
-    newX = (newX + roll) % 4;  // Assuming 4 columns, wrap around
+    let newLocationKey = Object.keys(locations).find(key => locations[key].x === newX && locations[key].y === currentLocation.y);
 
-
-
-    // Find the location key that matches the new coordinates.
-    let newLocationKey = Object.keys(locations).find(key => locations[key].x === newX && locations[key].y === newY );
-
-    if(newLocationKey){
+    if (newLocationKey) {
         currentPlayer.location = newLocationKey;
+         if (currentPlayer.character === "Macbeth") {
+            const duncan = players.find(p => p.character === "Duncan");
+            if (duncan && duncan.location === currentPlayer.location) {
+                displayMessage("Macbeth met Duncan! Duncan dies. Macbeth gains 5 influence.");
+                players = players.filter(p => p !== duncan);
+                currentPlayer.influence += 5;
+                currentPlayerIndex = players.indexOf(currentPlayer);  // Adjust index after removing player
+
+            if(currentPlayerIndex === -1) { // If Macbeth was last player
+                 currentPlayerIndex = 0; // Reset to the start for the next game if needed
+
+
+            }
+            }
+        }
+
+        const newLocation = locations[currentPlayer.location];
+        if (newLocation.effect) {
+            newLocation.effect(currentPlayer);
+        }
+
     } else {
-        console.log("Invalid Move"); // or handle differently
-        return; // Don't update player display if move is invalid.
+        displayMessage("Invalid move. Try again."); // Inform the player
+
     }
 
-    updatePlayerDisplay();
-    nextPlayer(); // Advance to the next player after movement
+
+  updatePlayerDisplay(); // call this even for an invalid move - it re-renders the player area.
+  nextPlayer(); // Call nextPlayer even if the move is invalid.
+
+
+
+
 }
 
-
 fateDeck = [
-    { text: "The Witches' Prophecy: Gain 3 influence.", effect: (player) => { player.influence += 3;} },
-    { text: "Duncan's Murder: All players lose 1 influence, Macbeth gains 2.", effect: () => { 
-        players.forEach(p => p.influence--);
-        const macbeth = players.find(p => p.character === "Macbeth");
-        if(macbeth) macbeth.influence += 2;
-     } },
-    // ... more fate cards ...
+    {
+        text: "The Witches' Prophecy",
+        image: "witch-prophecy.jpg",
+        effect: (player) => { player.influence += 3; displayMessage(`${player.name}: Witches' Prophecy - gain 3 influence.`); }
+    },
+    {
+        text: "Duncan's Murder",
+        image: "duncan-murder.jpg",
+        effect: () => {
+            players.forEach(p => p.influence--);
+            const macbeth = players.find(p => p.character === "Macbeth");
+            if (macbeth) macbeth.influence += 2;
+            displayMessage("Duncan's Murder: All players lose 1 influence, Macbeth gains 2.");
+        }
+    }
+    // ... more fate cards
 ];
 
-function shuffle(array) { // Fisher-Yates shuffle
+function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
 
-
 function drawFateCard() {
-    const card = fateDeck.pop();
-    if (!card) {
-        // Reshuffle deck if empty (optional)
-        fateDeck = [...fateDeckDiscard];
+    if (!fateDeck.length) {
+        fateDeck = fateDeckDiscard;
         fateDeckDiscard = [];
         shuffle(fateDeck);
-
-        if (!fateDeck.length) return; //  Still no cards
-        card = fateDeck.pop();
+        if (!fateDeck.length) {
+            displayMessage("No more fate cards!");
+            return;
+        }
     }
-    document.getElementById("fate-card-display").textContent = card.text;
 
-    card.effect(players[currentPlayerIndex]);  // Apply card effect to current player
+    const card = fateDeck.pop();
+    const display = document.getElementById("fate-card-display");
+    display.innerHTML = `<p>${card.text}</p>`;
+
+    if (card.image) {
+        const img = document.createElement('img');
+        img.src = card.image;
+        img.alt = card.text;
+        display.appendChild(img);
+    }
+
+
+    card.effect(players[currentPlayerIndex]);
+    fateDeckDiscard.push(card);
     updatePlayerDisplay();
-
-    fateDeckDiscard.push(card); // Add to discard pile.
     nextPlayer();
+
+
 }
-
-let fateDeckDiscard = [];
-
 
 function initializeGame() {
     shuffle(fateDeck);
@@ -190,65 +246,104 @@ function createBoard() {
         locationDiv.id = `location-${locationKey}`;
         locationDiv.className = "location";
         locationDiv.textContent = location.name;
-        locationDiv.style.gridColumn = location.x + 1; // grid columns start at 1
-        locationDiv.style.gridRow = location.y + 1; // grid rows start at 1
+        locationDiv.style.gridColumn = location.x + 1;
+        locationDiv.style.gridRow = location.y + 1;
         board.appendChild(locationDiv);
     }
 }
 
-
-
 function updatePlayerDisplay() {
-  const playerArea = document.getElementById("player-area");
-  playerArea.innerHTML = ""; // Clear previous player info
+    const playerArea = document.getElementById("player-area");
+    playerArea.innerHTML = "";
 
-  players.forEach(player => {
-      const playerDiv = document.createElement("div");
-      const pawn = document.createElement("span");
-      pawn.className = `player-pawn ${player.character.replace(" ", "-")}`; // Use character as class
+    players.forEach((player, index) => {
+        const playerDiv = document.createElement("div");
+        const pawn = document.createElement("span");
+        pawn.className = `player-pawn ${player.character.replace(" ", "-")}`;
+        pawn.style.backgroundColor = characterData[player.character].color;
+        playerDiv.innerHTML = `<span>${pawn.outerHTML} ${player.name} (${player.character}) - Location: ${player.location} - Influence: ${player.influence}</span>`;
+        playerArea.appendChild(playerDiv);
 
-      playerDiv.innerHTML = `<span>${pawn.outerHTML} ${player.name} (${player.character}) - Location: ${player.location} - Influence: ${player.influence}</span>`;
-      playerArea.appendChild(playerDiv);
-  });
 
-  // Highlight current player
-  if (players.length > 0 && currentPlayerIndex !== -1 ) {  // Check to prevent errors
-    playerArea.children[currentPlayerIndex].style.fontWeight = 'bold';
+        const locationDiv = document.getElementById(`location-${player.location}`);
+        if (locationDiv) {
 
-  }
+            locationDiv.appendChild(pawn);
+        }
+
+    });
+
+   if(players.length) { // Only proceed if there are players in the game.
+       if(currentPlayerIndex >= players.length) {
+           currentPlayerIndex = 0; // If last player was removed, go back to 0.
+       }
+        playerArea.children[currentPlayerIndex].style.fontWeight = 'bold';
+   }
 
 
 }
 
 
-// Setup area HTML generation
+// Setup area HTML Dynamic Generation
 const setupArea = document.getElementById("setup-area");
+const playerSetupInputs = document.getElementById("player-setup-inputs");
+
 for (let i = 1; i <= 4; i++) {
-  const playerSetupDiv = document.createElement("div");
-  playerSetupDiv.className = "player-setup";
-  playerSetupDiv.innerHTML = `
-      Player ${i} Name: <input type="text" id="player${i}-name">
-      Character: <select id="player${i}-char">
-          <option value="Macbeth">Macbeth</option>
-          <option value="Lady Macbeth">Lady Macbeth</option>
-          <option value="Banquo">Banquo</option>
-          <option value="Macduff">Macduff</option>
-      </select>
-  `;
-  setupArea.appendChild(playerSetupDiv);
+    const playerSetupDiv = document.createElement("div");
+    playerSetupDiv.className = "player-setup";
+    playerSetupDiv.innerHTML = `
+        Player ${i} Name: <input type="text" id="player${i}-name">
+        Character: <select id="player${i}-char">
+           <option value="">Select</option>
+           <option value="Macbeth">Macbeth</option>
+           <option value="Lady Macbeth">Lady Macbeth</option>
+           <option value="Banquo">Banquo</option>
+           <option value="Macduff">Macduff</option>
+           <option value="Duncan">Duncan</option>
+        </select>
+      `;
+    playerSetupInputs.appendChild(playerSetupDiv);
 }
+
 const startButton = document.createElement('button');
 startButton.textContent = "Start Game";
 startButton.onclick = startGame;
 setupArea.appendChild(startButton);
 
+
+
 function nextPlayer() {
-    currentPlayerIndex = (currentPlayerIndex + 1) % players.length; // Wrap around to the first player
-    updatePlayerDisplay(); // Update display to show the next player's turn
+
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+    updatePlayerDisplay();
 }
 
 
-</script>
+function displayMessage(message) {
+    const messagesDiv = document.getElementById("messages");
+    messagesDiv.innerHTML += `<p>${message}</p>`;
+}
 
+
+function resetGame() {
+    document.getElementById("setup-area").style.display = "block";
+    document.getElementById("game-area").style.display = "none";
+    document.getElementById("messages").innerHTML = "";
+
+
+    const nameInputs = document.querySelectorAll("#setup-area input[type='text']");
+    nameInputs.forEach(input => (input.value = ""));
+
+    const charSelects = document.querySelectorAll("#setup-area select");
+    charSelects.forEach(select => (select.value = ""));
+
+    players = [];
+    currentPlayerIndex = 0;
+    fateDeck = [...originalFateDeck];
+    fateDeckDiscard = [];
+    shuffle(fateDeck);
+}
+
+</script>
 </body>
 </html>
