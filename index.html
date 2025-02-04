@@ -125,19 +125,31 @@
         }
 
         .example-usage-header {
-            background: #ff9800 !important; /* New orange shade for Example Usage */
+            background: #ff9800;
+            padding: 10px 15px;
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
 
         .dropdown-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.2s ease, padding 0.15s ease; /* Faster folding behavior */
+            transition: max-height 0.3s ease, padding 0.2s ease; /* Faster folding behavior */
             padding: 0 15px;
         }
 
         .dropdown-content.open {
             max-height: 500px; /* Adjustable max height for longer content */
             padding: 15px;
+        }
+
+        .example-usage-content {
+            background: none; /* Remove the inner bounding background */
+            border: none;     /* Remove any borders */
+            box-shadow: none; /* Remove shadow to integrate into parent dropdown */
+            padding: 0;       /* Reset padding for a cleaner layout */
         }
 
         pre {
@@ -179,15 +191,13 @@
 access-list OUTSIDE-IN extended permit tcp any any eq 80
 access-group OUTSIDE-IN in interface outside
             </pre>
-            <div class="dropdown">
-                <div class="dropdown-header example-usage-header">Example Usage</div>
-                <div class="dropdown-content open"> <!-- Default "open" -->
-                    <pre>
+            <div class="example-usage-header">Example Usage</div>
+            <div class="dropdown-content example-usage-content">
+                <pre>
 # Add a firewall rule to allow HTTP traffic
 access-list OUTSIDE-IN extended permit tcp any any eq 80
 access-group OUTSIDE-IN in interface outside
-                    </pre>
-                </div>
+                </pre>
             </div>
         </div>
     </div>
@@ -202,15 +212,13 @@ access-group OUTSIDE-IN in interface outside
 object network obj_any
   nat (inside,outside) dynamic interface
             </pre>
-            <div class="dropdown">
-                <div class="dropdown-header example-usage-header">Example Usage</div>
-                <div class="dropdown-content open"> <!-- Default "open" -->
-                    <pre>
+            <div class="example-usage-header">Example Usage</div>
+            <div class="dropdown-content example-usage-content">
+                <pre>
 # Configure dynamic NAT using an object
 object network obj_internal
   subnet 192.168.1.0 255.255.255.0
-                    </pre>
-                </div>
+                </pre>
             </div>
         </div>
     </div>
@@ -218,16 +226,10 @@ object network obj_internal
 
 <script>
     // Dropdown functionality
-    document.querySelectorAll(".dropdown-header").forEach(header => {
+    document.querySelectorAll(".dropdown-header, .example-usage-header").forEach(header => {
         header.addEventListener("click", () => {
             const content = header.nextElementSibling;
             content.classList.toggle("open");
-
-            // Auto-open the inner dropdown if `Example Usage` exists
-            const innerDropdown = content.querySelector(".dropdown-content");
-            if (innerDropdown && !content.classList.contains("open")) {
-                setTimeout(() => innerDropdown.classList.add("open"), 150);
-            }
         });
     });
 
