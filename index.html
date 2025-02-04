@@ -10,6 +10,11 @@
       line-height: 1.6;
       margin: 20px;
       background-color: #f4f4f9;
+      transition: background-color 0.3s ease; /* Smooth background transition */
+    }
+    body.advanced-mode {
+      background-color: #1e1e2f; /* Darker background for advanced mode */
+      color: #ffffff;
     }
     h1 {
       text-align: center;
@@ -24,6 +29,8 @@
       border-radius: 5px;
       margin-bottom: 10px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      overflow: hidden; /* Ensures smooth animations */
+      transition: all 0.3s ease;
     }
     .dropdown-header {
       padding: 10px 15px;
@@ -32,20 +39,24 @@
       background: #007bff;
       color: #fff;
     }
+    body.advanced-mode .dropdown-header {
+      background: #4a90e2; /* Lighter blue for advanced mode */
+    }
     .dropdown-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease;
-      background: #f9f9f9;
-      padding: 0 15px;
-      border-top: 1px solid #ddd;
+      transition: max-height 0.3s ease, padding 0.2s ease;
+      padding: 0;
     }
     .dropdown-content.open {
       max-height: 1000px; /* Adjust based on content size */
       padding: 15px;
     }
+    .dropdown-content p, .dropdown-content pre {
+      margin: 0 0 10px;
+    }
     pre {
-      background: #1e1e1e; /* Dark background for code blocks */
+      background: #333333; /* Darker background for code blocks */
       color: #d4d4d4; /* Light text */
       padding: 10px;
       border-radius: 5px;
@@ -53,7 +64,10 @@
       font-family: Consolas, monospace;
       font-size: 0.9em;
     }
-    /* Advanced section styling */
+    body.advanced-mode pre {
+      background: #232323; /* Even darker background for advanced mode */
+    }
+    /* Advanced mode placeholder styling */
     .advanced {
       display: none;
     }
@@ -74,47 +88,51 @@
 </div>
 
 <!-- Basic Topics -->
-<div class="dropdown">
-  <div class="dropdown-header">Basic: Firewall Rule Example</div>
-  <div class="dropdown-content">
-    <p>Syntax:</p>
-    <pre>
+<div class="basic">
+  <div class="dropdown">
+    <div class="dropdown-header">Firewall Rule Example</div>
+    <div class="dropdown-content">
+      <p>Syntax:</p>
+      <pre>
 access-list OUTSIDE-IN extended permit tcp any any eq 80
 access-group OUTSIDE-IN in interface outside
-    </pre>
-    <div class="dropdown">
-      <div class="dropdown-header">Example Usage</div>
-      <div class="dropdown-content">
-        <p>Here’s how you might use the syntax:</p>
-        <pre>
+      </pre>
+      <div class="dropdown">
+        <div class="dropdown-header">Example Usage</div>
+        <div class="dropdown-content">
+          <p>Here's how you would use it:</p>
+          <pre>
 # Add a firewall rule to allow HTTP traffic
 access-list OUTSIDE-IN extended permit tcp any any eq 80
 access-group OUTSIDE-IN in interface outside
-        </pre>
+          </pre>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Advanced Topics -->
-<div class="dropdown advanced">
-  <div class="dropdown-header">Advanced: Object-Based NAT Configuration</div>
-  <div class="dropdown-content">
-    <p>Syntax:</p>
-    <pre>
+<div class="advanced">
+  <div class="dropdown">
+    <div class="dropdown-header">Advanced: Object-Based NAT Configuration</div>
+    <div class="dropdown-content">
+      <p>Syntax:</p>
+      <pre>
 object network obj_any
   nat (inside,outside) dynamic interface
-    </pre>
-    <div class="dropdown">
-      <div class="dropdown-header">Example Usage</div>
-      <div class="dropdown-content">
-        <p>Here’s an advanced example of NAT:</p>
-        <pre>
+      </pre>
+      <div class="dropdown">
+        <div class="dropdown-header">Example Usage</div>
+        <div class="dropdown-content">
+          <p>Here's an advanced example of NAT:</p>
+          <pre>
 # Configure dynamic NAT using an object
 object network obj_internal
   subnet 192.168.1.0 255.255.255.0
   nat (inside,outside) dynamic interface
-        </pre>
+          </pre>
+        </div>
       </div>
     </div>
   </div>
@@ -129,13 +147,24 @@ object network obj_internal
     });
   });
 
-  // Advanced toggle functionality
+  // Toggle between Basic and Advanced modes
   const advancedToggle = document.getElementById("advancedToggle");
-  const advancedSections = document.querySelectorAll(".advanced");
+  const body = document.body;
+  const basicSection = document.querySelector(".basic");
+  const advancedSection = document.querySelector(".advanced");
+
   advancedToggle.addEventListener("change", () => {
-    advancedSections.forEach(section => {
-      section.classList.toggle("visible", advancedToggle.checked);
-    });
+    if (advancedToggle.checked) {
+      // Show advanced mode
+      body.classList.add("advanced-mode");
+      basicSection.style.display = "none";
+      advancedSection.classList.add("visible");
+    } else {
+      // Show basic mode
+      body.classList.remove("advanced-mode");
+      basicSection.style.display = "block";
+      advancedSection.classList.remove("visible");
+    }
   });
 </script>
 
