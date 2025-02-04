@@ -151,6 +151,11 @@
             box-shadow: none; /* Remove shadow to integrate into parent dropdown */
             padding: 0;       /* Reset padding for a cleaner layout */
         }
+        
+        .example-usage-content.open {
+            max-height: 500px;
+            padding: 15px;
+        }
 
         pre {
             background: #333; /* Dark for Code Blocks */
@@ -192,7 +197,7 @@ access-list OUTSIDE-IN extended permit tcp any any eq 80
 access-group OUTSIDE-IN in interface outside
             </pre>
             <div class="example-usage-header">Example Usage</div>
-            <div class="dropdown-content example-usage-content">
+            <div class="dropdown-content example-usage-content open"> <!-- Default to open -->
                 <pre>
 # Add a firewall rule to allow HTTP traffic
 access-list OUTSIDE-IN extended permit tcp any any eq 80
@@ -213,7 +218,7 @@ object network obj_any
   nat (inside,outside) dynamic interface
             </pre>
             <div class="example-usage-header">Example Usage</div>
-            <div class="dropdown-content example-usage-content">
+            <div class="dropdown-content example-usage-content open"> <!-- Default to open -->
                 <pre>
 # Configure dynamic NAT using an object
 object network obj_internal
@@ -229,21 +234,18 @@ object network obj_internal
     document.querySelectorAll(".dropdown-header").forEach(header => {
         header.addEventListener("click", () => {
             const parentContent = header.nextElementSibling;
-            const innerHeader = parentContent.querySelector(".example-usage-header");
-            const innerContent = parentContent.querySelector(".dropdown-content.example-usage-content");
             
             // Toggle parent content open/close
-            const wasOpen = parentContent.classList.contains("open");
-            parentContent.classList.toggle("open");
-
-            if (!wasOpen) {
-                // Open parent: Auto-open inner box after a very short delay (~50ms)
-                if (innerHeader && innerContent) {
-                    setTimeout(() => innerContent.classList.add("open"), 50);
+            if (parentContent.classList.contains("open")) {
+                // Close parent; delay closing inner content to allow animation
+                const innerContent = parentContent.querySelector(".dropdown-content.example-usage-content");
+                if (innerContent) {
+                    setTimeout(() => innerContent.classList.remove("open"), 300); // Match animation duration
                 }
-            } else if (innerContent) {
-                // Close parent: Immediately close the inner box
-                innerContent.classList.remove("open");
+                parentContent.classList.remove("open");
+            } else {
+                // Open parent; immediately open inner content
+                parentContent.classList.add("open");
             }
         });
     });
@@ -254,8 +256,6 @@ object network obj_internal
     const basicSection = document.querySelector(".basic");
     const advancedSection = document.querySelector(".advanced");
     const body = document.body;
-
-    advancedSection.style.display = "none"; // Default: Hidden
 
     advancedToggle.addEventListener("change", () => {
         if (advancedToggle.checked) {
