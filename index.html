@@ -183,13 +183,31 @@
         <div class="dropdown-header">Basic Router/Switch Configuration</div>
         <div class="dropdown-content">
             <pre>
-enable password <text> # Privledged EXEC Passsword
-enable secret <text> # Privledged EXEC secret 
-service password-encryption # Encrypts all passwords
-line console 0 # Enters console line
-password <text> # Sets Console Password
-login # Requires login on Console Line
-copy run start | write mem # Saves Running Configuration</pre>
+enable password <text>              # Privileged EXEC password
+enable secret <text>                # Privileged EXEC secret
+service password-encryption          # Encrypts all passwords
+line console 0                       # Enters console line
+password <text>                      # Sets console password
+login                                # Requires login on console line
+hostname <text>                      # Sets the hostname
+ip routing                           # Enables IP routing
+banner motd <text>                   # Message displayed upon login
+copy run start | write mem           # Saves running configuration
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Example: Setting Up Basic Configurations</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example Commands:
+R1(config)# enable secret C1sc0R0cks
+R1(config)# line console 0
+R1(config-line)# password Cisco
+R1(config-line)# login
+R1(config)# hostname Router1
+R1(config)# service password-encryption
+                    </pre>
+                </div>
+            </div>
         </div>
     </div>
     <div class="dropdown">
@@ -205,8 +223,8 @@ basic-sample-command
                 <div class="dropdown-content open">
                     <pre>
 # Example commands for Basic Placeholder:
-basic-sample-config
 basic-sample-show
+basic-sample-debug
                     </pre>
                 </div>
             </div>
@@ -223,6 +241,17 @@ basic-sample-show
 object network obj_any
   nat (inside,outside) dynamic interface
             </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Example Scenario: Configuring NAT</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example: Configuring Dynamic NAT
+object network obj_internal
+  subnet 192.168.1.0 255.255.255.0
+nat (inside,outside) dynamic interface
+                    </pre>
+                </div>
+            </div>
         </div>
     </div>
     <div class="dropdown">
