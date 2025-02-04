@@ -24,6 +24,27 @@
             color: #fff;
         }
 
+        /* Reset Button Styling */
+        .reset-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #e53935;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .reset-button:hover {
+            background-color: #c62828; /* Darker red on hover */
+            transform: scale(1.1); /* Slight zoom effect */
+        }
+
         /* Toggle Switch Styling */
         .switch-container {
             text-align: center;
@@ -33,8 +54,8 @@
         .switch {
             position: relative;
             display: inline-block;
-            width: 50px; /* Reduced width */
-            height: 25px; /* Reduced height */
+            width: 50px;
+            height: 25px;
         }
 
         .switch input {
@@ -56,8 +77,8 @@
         .slider:before {
             position: absolute;
             content: '';
-            height: 19px; /* Reduced size */
-            width: 19px; /* Reduced size */
+            height: 19px;
+            width: 19px;
             left: 3px;
             bottom: 3px;
             background-color: white;
@@ -110,7 +131,7 @@
         .dropdown-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease, padding 0.2s ease;
+            transition: max-height 0.2s ease, padding 0.15s ease; /* Faster folding behavior */
             padding: 0 15px;
         }
 
@@ -135,8 +156,10 @@
     </style>
 </head>
 <body>
-
 <h1>Cisco CLI Notes</h1>
+
+<!-- Reset Button -->
+<button class="reset-button" id="resetButton">Reset</button>
 
 <!-- Custom Toggle Switch -->
 <div class="switch-container">
@@ -173,7 +196,7 @@ access-group OUTSIDE-IN in interface outside
 </div>
 
 <!-- Advanced Topics -->
-<div class="advanced">
+<div class="advanced" style="display: none;"> <!-- Default: Hidden -->
     <div class="dropdown">
         <div class="dropdown-header">Advanced: Object-Based NAT Configuration</div>
         <div class="dropdown-content">
@@ -204,10 +227,10 @@ object network obj_internal
             const content = header.nextElementSibling;
             content.classList.toggle("open");
 
-            // Ensure inner "Example Usage" dropdown is reset to open
+            // Auto-open the inner dropdown if `Example Usage` exists
             const innerDropdown = content.querySelector(".dropdown-content");
-            if (innerDropdown) {
-                innerDropdown.classList.add("open");
+            if (innerDropdown && !content.classList.contains("open")) {
+                setTimeout(() => innerDropdown.classList.add("open"), 150);
             }
         });
     });
@@ -218,6 +241,9 @@ object network obj_internal
     const basicSection = document.querySelector(".basic");
     const advancedSection = document.querySelector(".advanced");
     const body = document.body;
+
+    // Initialize: Ensure Advanced is Hidden
+    advancedSection.style.display = "none";
 
     advancedToggle.addEventListener("change", () => {
         if (advancedToggle.checked) {
@@ -231,6 +257,12 @@ object network obj_internal
             basicSection.style.display = "block";
             advancedSection.style.display = "none";
         }
+    });
+
+    // Reset Button Functionality
+    const resetButton = document.getElementById("resetButton");
+    resetButton.addEventListener("click", () => {
+        location.reload(); // Refresh the page
     });
 </script>
 
