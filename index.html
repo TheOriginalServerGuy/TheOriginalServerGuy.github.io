@@ -130,23 +130,21 @@
 
         .dropdown-content {
             max-height: 0;
-            overflow: hidden; /* Prevent content from being visible when collapsed */
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* Animation */
+            overflow: hidden;
+            transition: max-height 0.2s ease, padding 0.15s ease;
             padding: 0 15px;
         }
 
         .dropdown-content.open {
-            max-height: 500px; /* Ensures animation duration has a target */
-            overflow: visible;
+            max-height: none;
             padding: 15px;
         }
 
-        /* Styling Preformatted Text */
         pre {
-            white-space: pre-wrap; /* Allow wrapping within the viewport */
-            word-wrap: break-word; /* Split long words that don't fit */
-            overflow-x: auto; /* Allows horizontal scrolling if needed */
-            max-width: 100%; /* Prevent overflow */
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+            max-width: 100%;
             background: #333;
             color: white;
             padding: 10px;
@@ -154,26 +152,16 @@
             font-family: Consolas, monospace;
         }
 
+        /* Larger font size for other text */
         .dropdown-content p {
             font-size: 1.2em;
             color: #000;
         }
 
-        /* Advanced dropdown content style */
+        /* Advanced dropdown styling */
         body.advanced-mode .dropdown-content p,
         body.advanced-mode .dropdown-content pre {
             color: white;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .dropdown {
-                width: 100%;
-            }
-
-            pre {
-                font-size: 0.9em;
-            }
         }
     </style>
 </head>
