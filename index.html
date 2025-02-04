@@ -262,23 +262,7 @@ object network obj_internal
     // Reset Button Functionality
     const resetButton = document.getElementById("resetButton");
     resetButton.addEventListener("click", () => {
-        // Reset toggle switch
-        advancedToggle.checked = false;
-        body.classList.remove("advanced-mode");
-        modeLabel.textContent = "Basic Mode";
-        basicSection.style.display = "block";
-        advancedSection.style.display = "none";
-
-        // Close all dropdowns
-        document.querySelectorAll(".dropdown-content").forEach(content => {
-            content.classList.remove("open");
-        });
-
-        // Scroll to top
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+        location.reload(); // Refresh the page
     });
 </script>
 
