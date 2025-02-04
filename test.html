@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco CLI Notes</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #000;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .search-bar-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-bar {
+            width: 60%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Tabs Container */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 5px 5px 0 0;
+            background-color: #007bff;
+            color: white;
+            margin: 0 5px;
+        }
+
+        .tab.active {
+            background-color: #0056b3;
+        }
+
+        /* Content Section */
+        .tab-content {
+            display: none;
+            border: 1px solid #ddd;
+            border-radius: 0 5px 5px 5px;
+            padding: 15px;
+            background: white;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Topics Styling */
+        .topic {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .topic-header {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        pre {
+            background: #333;
+            color: #d4d4d4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Cisco CLI Notes</h1>
+
+<!-- Search Bar -->
+<div class="search-bar-container">
+    <input type="text" id="search" class="search-bar" placeholder="Search for a command or topic...">
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+    <div class="tab active" data-tab="basic">Basic Topics</div>
+    <div class="tab" data-tab="advanced">Advanced Topics</div>
+</div>
+
+<!-- Content Area -->
+<div id="basic" class="tab-content active">
+    <!-- Basic Topics -->
+    <div class="topic" data-topic="firewall rule">
+        <div class="topic-header">Firewall Rule Example</div>
+        <p>Syntax:</p>
+        <pre>
+access-list OUTSIDE-IN extended permit tcp any any eq 80
+access-group OUTSIDE-IN in interface outside
+        </pre>
+        <p>Example Usage:</p>
+        <pre>
+# Add a firewall rule to allow HTTP traffic
+access-list OUTSIDE-IN extended permit tcp any any eq 80
+access-group OUTSIDE-IN in interface outside
+        </pre>
+    </div>
+</div>
+
+<div id="advanced" class="tab-content">
+    <!-- Advanced Topics -->
+    <div class="topic" data-topic="object-based nat">
+        <div class="topic-header">Object-Based NAT Configuration</div>
+        <p>Syntax:</p>
+        <pre>
+object network obj_any
+  nat (inside,outside) dynamic interface
+        </pre>
+        <p>Example Usage:</p>
+        <pre>
+# Configure dynamic NAT using an object
+object network obj_internal
+  subnet 192.168.1.0 255.255.255.0
+        </pre>
+    </div>
+</div>
+
+<script>
+    // Tab switching functionality
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs and contents
+            tabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // Add active class to clicked tab and associated content
+            tab.classList.add('active');
+            document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+        });
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById('search');
+    const topics = document.querySelectorAll('.topic');
+
+    searchInput.addEventListener('input', () => {
+        const filter = searchInput.value.toLowerCase();
+
+        topics.forEach(topic => {
+            const text = topic.getAttribute('data-topic').toLowerCase();
+            if (text.includes(filter)) {
+                topic.style.display = '';
+            } else {
+                topic.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
