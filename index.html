@@ -14,9 +14,11 @@
             color: #000;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+
         h1 {
             text-align: center;
         }
+
         body.advanced-mode {
             background-color: #1e1e2f; /* Dark mode for Advanced Mode */
             color: #fff;
@@ -27,15 +29,18 @@
             text-align: center;
             margin-bottom: 20px;
         }
+
         .switch {
             position: relative;
             display: inline-block;
-            width: 60px;
-            height: 30px;
+            width: 50px; /* Reduced width */
+            height: 25px; /* Reduced height */
         }
+
         .switch input {
             display: none;
         }
+
         .slider {
             position: absolute;
             cursor: pointer;
@@ -47,27 +52,31 @@
             transition: 0.4s;
             border-radius: 30px;
         }
+
         .slider:before {
             position: absolute;
             content: '';
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 4px;
+            height: 19px; /* Reduced size */
+            width: 19px; /* Reduced size */
+            left: 3px;
+            bottom: 3px;
             background-color: white;
             transition: 0.4s;
             border-radius: 50%;
         }
+
         input:checked + .slider {
-            background-color: #4caf50;
+            background-color: #5679d3; /* New color for ON state */
         }
+
         input:checked + .slider:before {
-            transform: translateX(28px);
+            transform: translateX(24px); /* Adjusted translation for smaller switch */
         }
+
         .mode-label {
             margin-left: 10px;
             vertical-align: middle;
-            font-size: 1.2em;
+            font-size: 1em; /* Slightly smaller font size */
         }
 
         /* Dropdown Styling */
@@ -80,6 +89,7 @@
             overflow: hidden;
             transition: all 0.3s ease; /* Smoother animations */
         }
+
         .dropdown-header {
             padding: 10px 15px;
             font-size: 1.1em;
@@ -88,22 +98,27 @@
             color: white;
             transition: background 0.3s ease;
         }
+
         body.advanced-mode .dropdown-header {
             background: #e53935; /* Red for Advanced Mode */
         }
+
         .example-usage-header {
-            background: #4caf50 !important; /* Green for Example Usage */
+            background: #ff9800 !important; /* New orange shade for Example Usage */
         }
+
         .dropdown-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease, padding 0.2s ease;
             padding: 0 15px;
         }
+
         .dropdown-content.open {
             max-height: 500px; /* Adjustable max height for longer content */
             padding: 15px;
         }
+
         pre {
             background: #333; /* Dark for Code Blocks */
             color: #d4d4d4; /* Light text */
@@ -188,6 +203,12 @@ object network obj_internal
         header.addEventListener("click", () => {
             const content = header.nextElementSibling;
             content.classList.toggle("open");
+
+            // Ensure inner "Example Usage" dropdown is reset to open
+            const innerDropdown = content.querySelector(".dropdown-content");
+            if (innerDropdown) {
+                innerDropdown.classList.add("open");
+            }
         });
     });
 
