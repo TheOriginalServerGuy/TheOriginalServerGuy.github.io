@@ -21,7 +21,7 @@
 
         body.advanced-mode {
             background-color: #1e1e2f; /* Dark mode for Advanced Mode */
-            color: #fff;
+            color: #fff; /* Ensure white text on dark mode */
         }
 
         /* Reset Button Styling */
@@ -125,7 +125,7 @@
         }
 
         .example-usage-header {
-            background: #ff9800 !important; /* New orange shade for Example Usage */
+            background: #ff9800 !important; /* Orange shade for Example Usage */
         }
 
         .dropdown-content {
@@ -142,14 +142,13 @@
 
         pre {
             background: #333; /* Dark for Code Blocks */
-            color: #d4d4d4; /* Light text */
+            color: #ffffff; /* Fixed to always be white */
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
             font-family: Consolas, monospace;
         }
 
-        /* Advanced dropdown styling */
         body.advanced-mode pre {
             background: #232323;
         }
@@ -226,12 +225,6 @@ object network obj_internal
         header.addEventListener("click", () => {
             const content = header.nextElementSibling;
             content.classList.toggle("open");
-
-            // Auto-open the inner dropdown if `Example Usage` exists
-            const innerDropdown = content.querySelector(".dropdown-content");
-            if (innerDropdown && !content.classList.contains("open")) {
-                setTimeout(() => innerDropdown.classList.add("open"), 150);
-            }
         });
     });
 
@@ -241,9 +234,6 @@ object network obj_internal
     const basicSection = document.querySelector(".basic");
     const advancedSection = document.querySelector(".advanced");
     const body = document.body;
-
-    // Initialize: Ensure Advanced is Hidden
-    advancedSection.style.display = "none";
 
     advancedToggle.addEventListener("change", () => {
         if (advancedToggle.checked) {
@@ -262,7 +252,16 @@ object network obj_internal
     // Reset Button Functionality
     const resetButton = document.getElementById("resetButton");
     resetButton.addEventListener("click", () => {
-        location.reload(); // Refresh the page
+        // Reset the DOM state
+        advancedToggle.checked = false;
+        body.classList.remove("advanced-mode");
+        modeLabel.textContent = "Basic Mode";
+        basicSection.style.display = "block";
+        advancedSection.style.display = "none";
+
+        document.querySelectorAll(".dropdown-content").forEach(content => {
+            content.classList.remove("open");
+        });
     });
 </script>
 
