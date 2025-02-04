@@ -141,11 +141,14 @@
         }
 
         pre {
+            white-space: pre-wrap; /* Wrap text within the viewport */
+            word-wrap: break-word; /* Prevent long words from overflowing */
+            overflow-x: auto; /* Enable horizontal scroll if required */
+            max-width: 100%; /* Prevent overflowing the container */
             background: #333;
             color: white;
             padding: 10px;
             border-radius: 5px;
-            overflow-x: auto;
             font-family: Consolas, monospace;
         }
 
@@ -159,6 +162,17 @@
         body.advanced-mode .dropdown-content p,
         body.advanced-mode .dropdown-content pre {
             color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dropdown {
+                width: 100%; /* Expand dropdown to full width on small screens */
+            }
+
+            pre {
+                font-size: 0.9em; /* Adjust font size for smaller screens */
+            }
         }
     </style>
 </head>
