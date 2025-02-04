@@ -175,7 +175,6 @@
     <div class="dropdown">
         <div class="dropdown-header">Firewall Rule Example</div>
         <div class="dropdown-content">
-            <p>Syntax:</p>
             <pre>
 access-list OUTSIDE-IN extended permit tcp any any eq 80
 access-group OUTSIDE-IN in interface outside
@@ -183,7 +182,6 @@ access-group OUTSIDE-IN in interface outside
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Usage</div>
                 <div class="dropdown-content open"> <!-- Default "open" -->
-                    <p>Here's how you would use it:</p>
                     <pre>
 # Add a firewall rule to allow HTTP traffic
 access-list OUTSIDE-IN extended permit tcp any any eq 80
@@ -200,7 +198,6 @@ access-group OUTSIDE-IN in interface outside
     <div class="dropdown">
         <div class="dropdown-header">Advanced: Object-Based NAT Configuration</div>
         <div class="dropdown-content">
-            <p>Syntax:</p>
             <pre>
 object network obj_any
   nat (inside,outside) dynamic interface
@@ -208,7 +205,6 @@ object network obj_any
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Usage</div>
                 <div class="dropdown-content open"> <!-- Default "open" -->
-                    <p>Here's an advanced example of NAT:</p>
                     <pre>
 # Configure dynamic NAT using an object
 object network obj_internal
