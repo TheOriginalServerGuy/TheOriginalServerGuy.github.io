@@ -45,6 +45,61 @@
             transform: scale(1.1); /* Slight zoom effect */
         }
 
+        /* Toggle Switch Styling */
+        .switch-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: '';
+            height: 19px;
+            width: 19px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #5679d3; /* New color for ON state */
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px); /* Adjusted translation for smaller switch */
+        }
+
+        .mode-label {
+            margin-left: 10px;
+            vertical-align: middle;
+            font-size: 1em; /* Slightly smaller font size */
+        }
+
         /* Dropdown Styling */
         .dropdown {
             background: #fff;
@@ -69,10 +124,19 @@
             background: #e53935; /* Red for Advanced Mode */
         }
 
+        .example-usage-header {
+            background: #ff9800;
+            padding: 10px 15px;
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
         .dropdown-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.15s ease; /* Smooth fast collapse */
+            transition: max-height 0.3s ease, padding 0.2s ease; /* Faster folding behavior */
             padding: 0 15px;
         }
 
@@ -82,21 +146,24 @@
         }
 
         .example-usage-content {
-            background: none;
-            border: none;
-            box-shadow: none;
-            padding: 0;
-            max-height: 500px;
-            overflow-y: visible;
+            background: none; /* Remove the inner bounding background */
+            border: none;     /* Remove any borders */
+            box-shadow: none; /* Remove shadow to integrate into parent dropdown */
+            padding: 0;       /* Reset padding for a cleaner layout */
         }
 
         pre {
             background: #333; /* Dark for Code Blocks */
-            color: #fff; /* Make all text WHITE (Primary Change) */
+            color: #d4d4d4; /* Light text */
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
             font-family: Consolas, monospace;
+        }
+
+        /* Advanced dropdown styling */
+        body.advanced-mode pre {
+            background: #232323;
         }
     </style>
 </head>
@@ -105,6 +172,15 @@
 
 <!-- Reset Button -->
 <button class="reset-button" id="resetButton">Reset</button>
+
+<!-- Custom Toggle Switch -->
+<div class="switch-container">
+    <label class="switch">
+        <input type="checkbox" id="advancedToggle">
+        <span class="slider"></span>
+    </label>
+    <span class="mode-label">Basic Mode</span>
+</div>
 
 <!-- Basic Topics -->
 <div class="basic">
@@ -115,7 +191,8 @@
 access-list OUTSIDE-IN extended permit tcp any any eq 80
 access-group OUTSIDE-IN in interface outside
             </pre>
-            <div class="example-usage-content open"> <!-- Always open -->
+            <div class="example-usage-header">Example Usage</div>
+            <div class="dropdown-content example-usage-content">
                 <pre>
 # Add a firewall rule to allow HTTP traffic
 access-list OUTSIDE-IN extended permit tcp any any eq 80
@@ -127,7 +204,7 @@ access-group OUTSIDE-IN in interface outside
 </div>
 
 <!-- Advanced Topics -->
-<div class="advanced" style="display: none;"> <!-- Hidden by default -->
+<div class="advanced" style="display: none;"> <!-- Default: Hidden -->
     <div class="dropdown">
         <div class="dropdown-header">Advanced: Object-Based NAT Configuration</div>
         <div class="dropdown-content">
@@ -135,7 +212,8 @@ access-group OUTSIDE-IN in interface outside
 object network obj_any
   nat (inside,outside) dynamic interface
             </pre>
-            <div class="example-usage-content open"> <!-- Always open -->
+            <div class="example-usage-header">Example Usage</div>
+            <div class="dropdown-content example-usage-content">
                 <pre>
 # Configure dynamic NAT using an object
 object network obj_internal
@@ -148,28 +226,32 @@ object network obj_internal
 
 <script>
     // Dropdown functionality
-    document.querySelectorAll(".dropdown-header").forEach(header => {
+    document.querySelectorAll(".dropdown-header, .example-usage-header").forEach(header => {
         header.addEventListener("click", () => {
-            const parentContent = header.nextElementSibling;
-
-            // Toggle open/close behavior for parent content
-            parentContent.classList.toggle("open");
+            const content = header.nextElementSibling;
+            content.classList.toggle("open");
         });
     });
 
     // Advanced Mode Toggle
     const advancedToggle = document.getElementById("advancedToggle");
+    const modeLabel = document.querySelector(".mode-label");
     const basicSection = document.querySelector(".basic");
     const advancedSection = document.querySelector(".advanced");
     const body = document.body;
 
-    advancedToggle?.addEventListener("change", () => {
+    // Initialize: Ensure Advanced is Hidden
+    advancedSection.style.display = "none";
+
+    advancedToggle.addEventListener("change", () => {
         if (advancedToggle.checked) {
             body.classList.add("advanced-mode");
+            modeLabel.textContent = "Advanced Mode";
             basicSection.style.display = "none";
             advancedSection.style.display = "block";
         } else {
             body.classList.remove("advanced-mode");
+            modeLabel.textContent = "Basic Mode";
             basicSection.style.display = "block";
             advancedSection.style.display = "none";
         }
@@ -177,9 +259,10 @@ object network obj_internal
 
     // Reset Button Functionality
     const resetButton = document.getElementById("resetButton");
-    resetButton?.addEventListener("click", () => {
+    resetButton.addEventListener("click", () => {
         location.reload(); // Refresh the page
     });
 </script>
+
 </body>
 </html>
