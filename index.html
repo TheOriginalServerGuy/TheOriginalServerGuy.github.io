@@ -21,7 +21,7 @@
 
         body.advanced-mode {
             background-color: #1e1e2f; /* Dark mode for Advanced Mode */
-            color: #fff; /* Ensure white text on dark mode */
+            color: #fff;
         }
 
         /* Reset Button Styling */
@@ -54,8 +54,8 @@
         .switch {
             position: relative;
             display: inline-block;
-            width: 50px;
-            height: 25px;
+            width: 50px; /* Reduced width */
+            height: 25px; /* Reduced height */
         }
 
         .switch input {
@@ -77,8 +77,8 @@
         .slider:before {
             position: absolute;
             content: '';
-            height: 19px;
-            width: 19px;
+            height: 19px; /* Reduced size */
+            width: 19px; /* Reduced size */
             left: 3px;
             bottom: 3px;
             background-color: white;
@@ -125,13 +125,13 @@
         }
 
         .example-usage-header {
-            background: #ff9800 !important; /* Orange shade for Example Usage */
+            background: #ff9800 !important; /* New orange shade for Example Usage */
         }
 
         .dropdown-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.2s ease, padding 0.15s ease; /* Faster folding behavior */
+            transition: max-height 0.5s ease, padding 0.3s ease;
             padding: 0 15px;
         }
 
@@ -142,13 +142,14 @@
 
         pre {
             background: #333; /* Dark for Code Blocks */
-            color: #ffffff; /* Fixed to always be white */
+            color: #d4d4d4; /* Light text */
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
             font-family: Consolas, monospace;
         }
 
+        /* Advanced dropdown styling */
         body.advanced-mode pre {
             background: #232323;
         }
@@ -195,7 +196,7 @@ access-group OUTSIDE-IN in interface outside
 </div>
 
 <!-- Advanced Topics -->
-<div class="advanced" style="display: none;"> <!-- Default: Hidden -->
+<div class="advanced">
     <div class="dropdown">
         <div class="dropdown-header">Advanced: Object-Based NAT Configuration</div>
         <div class="dropdown-content">
@@ -224,7 +225,14 @@ object network obj_internal
     document.querySelectorAll(".dropdown-header").forEach(header => {
         header.addEventListener("click", () => {
             const content = header.nextElementSibling;
-            content.classList.toggle("open");
+            const isOpen = content.classList.contains("open");
+            
+            // Use setTimeout to delay closing nested menus
+            if (isOpen) {
+                setTimeout(() => content.classList.toggle("open"), 150);
+            } else {
+                content.classList.toggle("open");
+            }
         });
     });
 
@@ -252,15 +260,22 @@ object network obj_internal
     // Reset Button Functionality
     const resetButton = document.getElementById("resetButton");
     resetButton.addEventListener("click", () => {
-        // Reset the DOM state
+        // Reset toggle switch
         advancedToggle.checked = false;
         body.classList.remove("advanced-mode");
         modeLabel.textContent = "Basic Mode";
         basicSection.style.display = "block";
         advancedSection.style.display = "none";
 
+        // Close all dropdowns
         document.querySelectorAll(".dropdown-content").forEach(content => {
             content.classList.remove("open");
+        });
+
+        // Scroll to top
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
         });
     });
 </script>
