@@ -136,7 +136,7 @@
         .dropdown-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.2s ease; /* Faster folding behavior */
+            transition: max-height 0.3s ease, padding 0.15s ease; /* Adjusted for faster close */
             padding: 0 15px;
         }
 
@@ -154,7 +154,7 @@
 
         pre {
             background: #333; /* Dark for Code Blocks */
-            color: #d4d4d4; /* Light text */
+            color: #fff; /* Make all text WHITE */
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
@@ -225,11 +225,20 @@ object network obj_internal
 </div>
 
 <script>
-    // Dropdown functionality
-    document.querySelectorAll(".dropdown-header, .example-usage-header").forEach(header => {
+    document.querySelectorAll(".dropdown-header").forEach(header => {
         header.addEventListener("click", () => {
-            const content = header.nextElementSibling;
-            content.classList.toggle("open");
+            const parentContent = header.nextElementSibling;
+            const innerHeader = parentContent.querySelector(".example-usage-header");
+            const innerContent = parentContent.querySelector(".dropdown-content.example-usage-content");
+            
+            parentContent.classList.toggle("open");
+            
+            // Automatically open inner content when parent is opened
+            if (parentContent.classList.contains("open") && innerHeader && innerContent) {
+                setTimeout(() => innerContent.classList.add("open"), 300); // Small delay
+            } else if (innerContent) {
+                innerContent.classList.remove("open");
+            }
         });
     });
 
@@ -240,8 +249,7 @@ object network obj_internal
     const advancedSection = document.querySelector(".advanced");
     const body = document.body;
 
-    // Initialize: Ensure Advanced is Hidden
-    advancedSection.style.display = "none";
+    advancedSection.style.display = "none"; // Default: Hidden
 
     advancedToggle.addEventListener("change", () => {
         if (advancedToggle.checked) {
