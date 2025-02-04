@@ -24,27 +24,6 @@
             color: #fff;
         }
 
-        /* Reset Button Styling */
-        .reset-button {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: #e53935;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 0.9em;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .reset-button:hover {
-            background-color: #c62828; /* Darker red on hover */
-            transform: scale(1.1); /* Slight zoom effect */
-        }
-
         /* Toggle Switch Styling */
         .switch-container {
             text-align: center;
@@ -131,7 +110,7 @@
         .dropdown-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease, padding 0.3s ease;
+            transition: max-height 0.5s ease, padding 0.2s ease;
             padding: 0 15px;
         }
 
@@ -156,10 +135,8 @@
     </style>
 </head>
 <body>
-<h1>Cisco CLI Notes</h1>
 
-<!-- Reset Button -->
-<button class="reset-button" id="resetButton">Reset</button>
+<h1>Cisco CLI Notes</h1>
 
 <!-- Custom Toggle Switch -->
 <div class="switch-container">
@@ -225,13 +202,12 @@ object network obj_internal
     document.querySelectorAll(".dropdown-header").forEach(header => {
         header.addEventListener("click", () => {
             const content = header.nextElementSibling;
-            const isOpen = content.classList.contains("open");
-            
-            // Use setTimeout to delay closing nested menus
-            if (isOpen) {
-                setTimeout(() => content.classList.toggle("open"), 150);
-            } else {
-                content.classList.toggle("open");
+            content.classList.toggle("open");
+
+            // Ensure inner "Example Usage" dropdown is reset to open
+            const innerDropdown = content.querySelector(".dropdown-content");
+            if (innerDropdown) {
+                innerDropdown.classList.add("open");
             }
         });
     });
@@ -255,28 +231,6 @@ object network obj_internal
             basicSection.style.display = "block";
             advancedSection.style.display = "none";
         }
-    });
-
-    // Reset Button Functionality
-    const resetButton = document.getElementById("resetButton");
-    resetButton.addEventListener("click", () => {
-        // Reset toggle switch
-        advancedToggle.checked = false;
-        body.classList.remove("advanced-mode");
-        modeLabel.textContent = "Basic Mode";
-        basicSection.style.display = "block";
-        advancedSection.style.display = "none";
-
-        // Close all dropdowns
-        document.querySelectorAll(".dropdown-content").forEach(content => {
-            content.classList.remove("open");
-        });
-
-        // Scroll to top
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
     });
 </script>
 
