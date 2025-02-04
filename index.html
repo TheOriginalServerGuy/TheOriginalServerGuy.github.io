@@ -142,7 +142,7 @@
 
         pre {
             background: #333;
-            color: white; /* Changed code block text to white */
+            color: white;
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
@@ -190,22 +190,20 @@ line console 0 # Enters console line
 password <text> # Sets Console Password
 login # Requires login on Console Line
 copy run start | write mem # Saves Running Configuration</pre>
-            <div class="dropdown">
-                <div class="dropdown-header example-usage-header">Example Commands</div>
-                <div class="dropdown-content open">
-                    <pre>
-# Enable secret and password cannot be set at the same time!
-R1(config)#enable secret C1sc0R0cks
-R1(config)#enable password C1sc0R0cks
-R1(config)#line console 0
-R1(config-line)#password Cisco
-R1(config-line)#login
-                    </pre>
-                </div>
-            </div>
+        </div>
+    </div>
+    <div class="dropdown">
+        <div class="dropdown-header">Basic Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Basic Section
+# Replace these commands later!
+basic-sample-command
+            </pre>
         </div>
     </div>
 </div>
+
 <!-- Advanced Topics -->
 <div class="advanced" style="display: none;">
     <div class="dropdown">
@@ -215,16 +213,16 @@ R1(config-line)#login
 object network obj_any
   nat (inside,outside) dynamic interface
             </pre>
-            <div class="dropdown">
-                <div class="dropdown-header example-usage-header">Example Usage</div>
-                <div class="dropdown-content open">
-                    <pre>
-# Configure dynamic NAT using an object
-object network obj_internal
-  subnet 192.168.1.0 255.255.255.0
-                    </pre>
-                </div>
-            </div>
+        </div>
+    </div>
+    <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
         </div>
     </div>
 </div>
@@ -235,11 +233,6 @@ object network obj_internal
         header.addEventListener("click", () => {
             const content = header.nextElementSibling;
             content.classList.toggle("open");
-
-            const innerDropdown = content.querySelector(".dropdown-content");
-            if (innerDropdown && !content.classList.contains("open")) {
-                setTimeout(() => innerDropdown.classList.add("open"), 150);
-            }
         });
     });
 
@@ -249,8 +242,6 @@ object network obj_internal
     const basicSection = document.querySelector(".basic");
     const advancedSection = document.querySelector(".advanced");
     const body = document.body;
-
-    advancedSection.style.display = "none";
 
     advancedToggle.addEventListener("change", () => {
         if (advancedToggle.checked) {
