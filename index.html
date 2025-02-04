@@ -115,13 +115,13 @@
             padding: 10px 15px;
             font-size: 1.1em;
             cursor: pointer;
-            background: #007bff; /* Blue for Basic Mode */
+            background: #007bff; /* Blue for BASIC Mode */
             color: white;
             transition: background 0.3s ease;
         }
 
         body.advanced-mode .dropdown-header {
-            background: #e53935; /* Red for Advanced Mode */
+            background: #e53935; /* Red for ADVANCED Mode */
         }
 
         .example-usage-header {
@@ -140,21 +140,29 @@
             padding: 15px;
         }
 
-        /* Code blocks (no changes from the original CSS) */
         pre {
             background: #333; /* Dark for Code Blocks */
-            color: #d4d4d4; /* Light text */
+            color: #000; /* Ensure code block text is black */
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
             font-family: Consolas, monospace;
         }
 
-        /* Advanced Mode Styling for Description Text */
-        body.advanced-mode .dropdown-content p {
-            color: #d3d3d3; /* Light gray for description text */
-            font-size: 1.1em; /* Slightly larger size for better readability */
-            margin-bottom: 10px; /* Add space after paragraphs for better structure */
+        /* Larger font size for important text */
+        .dropdown-content p {
+            font-size: 1.2em; /* Larger font size for key text */
+            color: #000; /* Ensure text is black for better contrast with white background */
+        }
+
+        .dropdown-content pre {
+            color: #000; /* Code blocks within dropdown content also need black text */
+        }
+
+        /* Advanced dropdown styling */
+        body.advanced-mode .dropdown-content p,
+        body.advanced-mode .dropdown-content pre {
+            color: #000; /* Keep text black even in advanced mode */
         }
     </style>
 </head>
@@ -183,12 +191,23 @@
 access-list OUTSIDE-IN extended permit tcp any any eq 80
 access-group OUTSIDE-IN in interface outside
             </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Example Usage</div>
+                <div class="dropdown-content open"> <!-- Default "open" -->
+                    <p>Here's how you would use it:</p>
+                    <pre>
+# Add a firewall rule to allow HTTP traffic
+access-list OUTSIDE-IN extended permit tcp any any eq 80
+access-group OUTSIDE-IN in interface outside
+                    </pre>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Advanced Topics -->
-<div class="advanced" style="display: none;">
+<div class="advanced" style="display: none;"> <!-- Default: Hidden -->
     <div class="dropdown">
         <div class="dropdown-header">Advanced: Object-Based NAT Configuration</div>
         <div class="dropdown-content">
@@ -197,13 +216,66 @@ access-group OUTSIDE-IN in interface outside
 object network obj_any
   nat (inside,outside) dynamic interface
             </pre>
-            <p>Here's an advanced example of NAT:</p>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Example Usage</div>
+                <div class="dropdown-content open"> <!-- Default "open" -->
+                    <p>Here's an advanced example of NAT:</p>
+                    <pre>
+# Configure dynamic NAT using an object
+object network obj_internal
+  subnet 192.168.1.0 255.255.255.0
+                    </pre>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    // JavaScript: Handles mode switching and dropdown logic (unchanged)
+    // Dropdown functionality
+    document.querySelectorAll(".dropdown-header").forEach(header => {
+        header.addEventListener("click", () => {
+            const content = header.nextElementSibling;
+            content.classList.toggle("open");
+
+            // Auto-open the inner dropdown if `Example Usage` exists
+            const innerDropdown = content.querySelector(".dropdown-content");
+            if (innerDropdown && !content.classList.contains("open")) {
+                setTimeout(() => innerDropdown.classList.add("open"), 150);
+            }
+        });
+    });
+
+    // Advanced Mode Toggle
+    const advancedToggle = document.getElementById("advancedToggle");
+    const modeLabel = document.querySelector(".mode-label");
+    const basicSection = document.querySelector(".basic");
+    const advancedSection = document.querySelector(".advanced");
+    const body = document.body;
+
+    // Initialize: Ensure Advanced is Hidden
+    advancedSection.style.display = "none";
+
+    advancedToggle.addEventListener("change", () => {
+        if (advancedToggle.checked) {
+            body.classList.add("advanced-mode");
+            modeLabel.textContent = "Advanced Mode";
+            basicSection.style.display = "none";
+            advancedSection.style.display = "block";
+        } else {
+            body.classList.remove("advanced-mode");
+            modeLabel.textContent = "Basic Mode";
+            basicSection.style.display = "block";
+            advancedSection.style.display = "none";
+        }
+    });
+
+    // Reset Button Functionality
+    const resetButton = document.getElementById("resetButton");
+    resetButton.addEventListener("click", () => {
+        location.reload(); // Refresh the page
+    });
 </script>
+
 </body>
 </html>
