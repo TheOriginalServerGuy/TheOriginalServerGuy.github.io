@@ -130,21 +130,23 @@
 
         .dropdown-content {
             max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
+            overflow: hidden; /* Prevent content from being visible when collapsed */
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* Animation */
             padding: 0 15px;
         }
 
         .dropdown-content.open {
-            max-height: none;
+            max-height: 500px; /* Ensures animation duration has a target */
+            overflow: visible;
             padding: 15px;
         }
 
+        /* Styling Preformatted Text */
         pre {
-            white-space: pre-wrap; /* Wrap text within the viewport */
-            word-wrap: break-word; /* Prevent long words from overflowing */
-            overflow-x: auto; /* Enable horizontal scroll if required */
-            max-width: 100%; /* Prevent overflowing the container */
+            white-space: pre-wrap; /* Allow wrapping within the viewport */
+            word-wrap: break-word; /* Split long words that don't fit */
+            overflow-x: auto; /* Allows horizontal scrolling if needed */
+            max-width: 100%; /* Prevent overflow */
             background: #333;
             color: white;
             padding: 10px;
@@ -152,13 +154,12 @@
             font-family: Consolas, monospace;
         }
 
-        /* Larger font size for other text */
         .dropdown-content p {
             font-size: 1.2em;
             color: #000;
         }
 
-        /* Advanced dropdown styling */
+        /* Advanced dropdown content style */
         body.advanced-mode .dropdown-content p,
         body.advanced-mode .dropdown-content pre {
             color: white;
@@ -167,11 +168,11 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .dropdown {
-                width: 100%; /* Expand dropdown to full width on small screens */
+                width: 100%;
             }
 
             pre {
-                font-size: 0.9em; /* Adjust font size for smaller screens */
+                font-size: 0.9em;
             }
         }
     </style>
