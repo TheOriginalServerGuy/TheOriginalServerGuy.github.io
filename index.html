@@ -180,6 +180,37 @@
 <!-- Basic Topics -->
 <div class="basic">
     <div class="dropdown">
+        <div class="dropdown-header">Basic Router/Switch Configuration</div>
+        <div class="dropdown-content">
+            <pre>
+enable password <> # Privledged EXEC Passsword
+enable secret <> # Privledged EXEC secret 
+service password-encryption # Encrypts all passwords
+line console 0 # Enters console line
+password <> # Sets Console Password
+login # Requires login on Console Line
+copy run start | write mem
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Example Commands</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Enable secret and password cannot be set at the same time!
+R1(config)#enable secret C1sc0R0cks
+R1(config)#enable password C1sc0R0cks
+R1(config)#line con 0
+R1(config-line)#password Cisco
+R1(config-line)#login
+R1(config-line)#exit
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="basic">
+    <div class="dropdown">
         <div class="dropdown-header">Firewall Rule Example</div>
         <div class="dropdown-content">
             <pre>
@@ -199,7 +230,6 @@ access-group OUTSIDE-IN in interface outside
         </div>
     </div>
 </div>
-
 <!-- Advanced Topics -->
 <div class="advanced" style="display: none;">
     <div class="dropdown">
