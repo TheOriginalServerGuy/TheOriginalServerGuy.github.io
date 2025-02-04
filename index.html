@@ -115,13 +115,13 @@
             padding: 10px 15px;
             font-size: 1.1em;
             cursor: pointer;
-            background: #007bff; /* Blue for BASIC Mode */
+            background: #007bff; /* Blue for Basic Mode */
             color: white;
             transition: background 0.3s ease;
         }
 
         body.advanced-mode .dropdown-header {
-            background: #e53935; /* Red for ADVANCED Mode */
+            background: #e53935; /* Red for Advanced Mode */
         }
 
         .example-usage-header {
@@ -142,27 +142,16 @@
 
         pre {
             background: #333; /* Dark for Code Blocks */
-            color: #000; /* Ensure code block text is black */
+            color: #d4d4d4; /* Light text */
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
             font-family: Consolas, monospace;
         }
 
-        /* Larger font size for important text */
-        .dropdown-content p {
-            font-size: 1.2em; /* Larger font size for key text */
-            color: #000; /* Ensure text is black for better contrast with white background */
-        }
-
-        .dropdown-content pre {
-            color: #000; /* Code blocks within dropdown content also need black text */
-        }
-
         /* Advanced dropdown styling */
-        body.advanced-mode .dropdown-content p,
-        body.advanced-mode .dropdown-content pre {
-            color: #000; /* Keep text black even in advanced mode */
+        body.advanced-mode pre {
+            background: #232323;
         }
     </style>
 </head>
