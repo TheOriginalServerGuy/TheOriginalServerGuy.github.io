@@ -186,15 +186,15 @@
         <div class="dropdown-header">Basic Router/Switch Configuration</div>
         <div class="dropdown-content">
             <pre>
-enable password [text]               # Privileged EXEC password
+enable password [text]               # Privileged EXEC unencrypted password
 enable secret [text]                 # Privileged EXEC secret
-service password-encryption          # Encrypts all passwords
+# You can NOT have both an enable password and enable secret set at the same time!
 line console 0                       # Enters console line
 password [text]                      # Sets console password
+service password-encryption          # Encrypts all plaintext passwords on the device
 login                                # Requires login on console line
 hostname [text]                      # Sets the hostname
-ip routing                           # Enables IP routing
-banner motd ![text]!                 # Message displayed upon login
+banner motd [symbol][text][symbol]   # Message displayed upon login
 copy run start | write mem           # Saves running configuration</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
@@ -204,8 +204,11 @@ R1(config)# enable secret C1sc0R0cks
 R1(config)# line console 0
 R1(config-line)# password Cisco
 R1(config-line)# login
+R1(config-line)# exit
 R1(config)# hostname Router1
-R1(config)# service password-encryption</pre>
+Router1(config)# service password-encryption
+Router1(config)# banner motd #Authorized Access Only!#
+Router1(config)# write mem</pre>
                 </div>
             </div>
         </div>
@@ -214,6 +217,7 @@ R1(config)# service password-encryption</pre>
         <div class="dropdown-header">Interface Addressing</div>
         <div class="dropdown-content">
             <pre>
+interface [Interfacename]        # Enters interface configuration mode for that interface
 ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
 no shutdown                      # Activates the interface
             </pre>
@@ -633,21 +637,19 @@ R1(config-if)#no shutdown
 <!-- Advanced Topics -->
 <div class="advanced" style="display: none;">
     <div class="dropdown">
-        <div class="dropdown-header">Advanced: Object-Based NAT Configuration</div>
+        <div class="dropdown-header">Advanced: Stronger Encrypted Passwords</div>
         <div class="dropdown-content">
             <pre>
-object network obj_any
-  nat (inside,outside) dynamic interface
-            </pre>
+enable secret 5/8/9 [Hash]                                # Sets the enable secret to a pre-generated hash
+enable algorithm-type [Hashtype] secret [text]            # Derives the hashed enable secret from a plaintext
+username [text] algorithm-type [Hashtype] secret [text]   # Makes a new user with a hashed password derived from a plaintext</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-# Example: Configuring Dynamic NAT
-object network obj_internal
-  subnet 192.168.1.0 255.255.255.0
-nat (inside,outside) dynamic interface
-                    </pre>
+enable secret 5 dfeaf10390e560aea745ccba53e044ed
+enable algorithm-type md5 secret cisco
+username Admin algorithm-type md5 secret cisco</pre>
                 </div>
             </div>
         </div>
