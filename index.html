@@ -219,16 +219,14 @@ Router1(config)# write mem</pre>
             <pre>
 interface [Interfacename]        # Enters interface configuration mode for that interface
 ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
-no shutdown                      # Activates the interface
-            </pre>
+no shutdown                      # Activates the interface</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
 R1(config)#interface g0/0/0
 R1(config-if)#ip address 192.168.1.1 255.255.255.0
-R1(config-if)#no shutdown
-					</pre>
+R1(config-if)#no shutdown</pre>
                 </div>
             </div>
         </div>
@@ -241,8 +239,7 @@ ip domain-name [domain]                # Sets the default domain name
 crypto key generate rsa   (1024)       # Generates a new RSA key. Hostname cannot be default
 username [text] password/secret [text] # Declares a new user with credentials
 ip ssh version [num]                   # Sets the SSH Version
-transport input ssh 		       # Enables SSH on the VTY lines
-            </pre>
+transport input ssh 		       # Enables SSH on the VTY lines</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
