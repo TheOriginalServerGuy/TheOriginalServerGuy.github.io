@@ -186,49 +186,444 @@
         <div class="dropdown-header">Basic Router/Switch Configuration</div>
         <div class="dropdown-content">
             <pre>
-enable password <text>              # Privileged EXEC password
-enable secret <text>                # Privileged EXEC secret
+enable password [text]               # Privileged EXEC password
+enable secret [text]                 # Privileged EXEC secret
 service password-encryption          # Encrypts all passwords
 line console 0                       # Enters console line
-password <text>                      # Sets console password
+password [text]                      # Sets console password
 login                                # Requires login on console line
-hostname <text>                      # Sets the hostname
+hostname [text]                      # Sets the hostname
 ip routing                           # Enables IP routing
-banner motd <text>                   # Message displayed upon login
-copy run start | write mem           # Saves running configuration
-            </pre>
+banner motd ![text]!                 # Message displayed upon login
+copy run start | write mem           # Saves running configuration</pre>
             <div class="dropdown">
-                <div class="dropdown-header example-usage-header">Example: Setting Up Basic Configurations</div>
+                <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-# Example Commands:
 R1(config)# enable secret C1sc0R0cks
 R1(config)# line console 0
 R1(config-line)# password Cisco
 R1(config-line)# login
 R1(config)# hostname Router1
-R1(config)# service password-encryption
-                    </pre>
+R1(config)# service password-encryption</pre>
                 </div>
             </div>
         </div>
     </div>
     <div class="dropdown">
-        <div class="dropdown-header">Basic Sample Placeholder</div>
+        <div class="dropdown-header">Interface Addressing</div>
         <div class="dropdown-content">
             <pre>
-# Placeholder Content for Basic Section
-# Replace these commands later!
-basic-sample-command
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
             </pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Commands Example</div>
                 <div class="dropdown-content open">
                     <pre>
-# Example commands for Basic Placeholder:
-basic-sample-show
-basic-sample-debug
-                    </pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Interface Addressing1</div>
+        <div class="dropdown-content">
+            <pre>
+ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
+no shutdown                      # Activates the interface
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Commands Example</div>
+                <div class="dropdown-content open">
+                    <pre>
+R1(config)#interface g0/0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown
+					</pre>
                 </div>
             </div>
         </div>
@@ -258,6 +653,594 @@ nat (inside,outside) dynamic interface
         </div>
     </div>
     <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
+        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-content">
+            <pre>
+# Placeholder Content for Advanced Section
+# Replace these commands later!
+advanced-sample-command
+            </pre>
+            <div class="dropdown">
+                <div class="dropdown-header example-usage-header">Applied Scenario</div>
+                <div class="dropdown-content open">
+                    <pre>
+# Example scenario for Advanced Placeholder:
+object network obj_advanced
+  subnet 10.10.0.0 255.255.255.0
+advanced-sample-apply
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="dropdown">
         <div class="dropdown-header">Advanced Sample Placeholder</div>
         <div class="dropdown-content">
             <pre>
