@@ -234,20 +234,26 @@ R1(config-if)#no shutdown
         </div>
     </div>
       <div class="dropdown">
-        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-header">Enabling SSH</div>
         <div class="dropdown-content">
             <pre>
-ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
-no shutdown                      # Activates the interface
+ip domain-name [domain]                # Sets the default domain name
+crypto key generate rsa   (1024)       # Generates a new RSA key. Hostname cannot be default
+username [text] password/secret [text] # Declares a new user with credentials
+ip ssh version [num]                   # Sets the SSH Version
+transport input ssh 		       # Enables SSH on the VTY lines
             </pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-R1(config)#interface g0/0/0
-R1(config-if)#ip address 192.168.1.1 255.255.255.0
-R1(config-if)#no shutdown
-					</pre>
+R1(config)#ip domain-name cisco.com
+R1(config)#crypto key generate rsa
+R1(config)#ip ssh version 2
+R1(config)#username Admin secret hi
+R1(config)#line vty 0 4
+R1(config-line)#transport input ssh
+R1(config-line)#login local</pre>
                 </div>
             </div>
         </div>
