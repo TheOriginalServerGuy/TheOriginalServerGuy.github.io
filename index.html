@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cisco CLI Notes</title>
+    <title>Cisco Notes</title>
     <style>
         /* General Styling */
         body {
@@ -152,7 +152,6 @@
             font-family: Consolas, monospace;
         }
 
-        /* Larger font size for other text */
         .dropdown-content p {
             font-size: 1.2em;
             color: #000;
@@ -166,7 +165,7 @@
     </style>
 </head>
 <body>
-<h1>Cisco CLI Notes</h1>
+<h1>Cisco Notes</h1>
 
 <!-- Reset Button -->
 <button class="reset-button" id="resetButton">Reset</button>
@@ -217,7 +216,7 @@ Router1(config)# write mem</pre>
         <div class="dropdown-header">Interface Addressing</div>
         <div class="dropdown-content">
             <pre>
-interface [Interfacename]        # Enters interface configuration mode for that interface
+interface [if-name]        # Enters interface configuration mode for that interface
 ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
 no shutdown                      # Activates the interface</pre>
             <div class="dropdown">
@@ -256,58 +255,61 @@ R1(config-line)#login local</pre>
         </div>
     </div>
       <div class="dropdown">
-        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-header">IPv6 Addressing</div>
         <div class="dropdown-content">
             <pre>
-ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
-no shutdown                      # Activates the interface
-            </pre>
+ipv6 address [address]/[mask] {link-local}    # Sets an interface's IPv6 address or a link-local IPv6 address</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
 R1(config)#interface g0/0/0
-R1(config-if)#ip address 192.168.1.1 255.255.255.0
-R1(config-if)#no shutdown
-					</pre>
+R1(config-if)#ipv6 addr 2001:db8:acad:1::a/64
+R1(config-if)#ipv6 addr fe80::1 link-local</pre>
                 </div>
             </div>
         </div>
     </div>
       <div class="dropdown">
-        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-header">Switchport modes and DTP</div>
         <div class="dropdown-content">
             <pre>
-ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
-no shutdown                      # Activates the interface
-            </pre>
+switchport mode access                    # Sets the trunking mode to Access uncondintionally         
+switchport mode trunk                     # Sets the trunking mode to Trunk unconditionally
+switchport mode dynamic auto/desirable    # DTP will listen for any changes and convert if necessary
+switchport mode dynamic desirable         # DTP actively tries to convert the link to a trunk
+# Two switchports with dynamic auto will stay Access.
+# If any one or both of the switchports are dynamic desirable, the link will be converted into a trunk.
+# If any dynamic switchport meets another switchport which is set to access or trunk, the link will be that state.</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-R1(config)#interface g0/0/0
-R1(config-if)#ip address 192.168.1.1 255.255.255.0
-R1(config-if)#no shutdown
-					</pre>
+S1(config)#interface g0/1
+S1(config-if)#switchport mode dynamic auto</pre>
                 </div>
             </div>
         </div>
     </div>
       <div class="dropdown">
-        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-header">Trunks to Routers</div>
         <div class="dropdown-content">
             <pre>
-ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
-no shutdown                      # Activates the interface
-            </pre>
+interface [if-name].[num]        # Interfaces to a router subinterface
+encapsulation dot1Q [num]        # Sets the IEEE 802.1Q vLAN number that will be connected</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-R1(config)#interface g0/0/0
-R1(config-if)#ip address 192.168.1.1 255.255.255.0
-R1(config-if)#no shutdown
-					</pre>
+R1(config)#interface g0/0/0.5
+R1(config-subif)#ip address 192.168.5.1 255.255.255.0
+			    
+% Configuring IP routing on a LAN subinterface is only allowed if that
+subinterface is already configured as part of an IEEE 802.10, IEEE 802.1Q,
+or ISL vLAN.
+			    
+R1(config-subif)#encapsulation dot1Q 5
+# It is generally best practice to number subinterfaces based on the vLANs that they will encapsulate.</pre>
                 </div>
             </div>
         </div>
