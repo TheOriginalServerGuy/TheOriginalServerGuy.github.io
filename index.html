@@ -315,20 +315,21 @@ R1(config-subif)#encapsulation dot1Q 5
         </div>
     </div>
       <div class="dropdown">
-        <div class="dropdown-header">Interface Addressing</div>
+        <div class="dropdown-header">IP Routing</div>
         <div class="dropdown-content">
             <pre>
-ip address X.X.X.X ne.tm.as.k    # Sets the interface IP address
-no shutdown                      # Activates the interface
-            </pre>
+ip route X.X.X.X an.et.ma.sk x.x.x.x [num[    # Routes the first IP/subnet through the second IP with an optional distance metric
+[np] ip routing                               # Enables/Disables IP Routing for the Router/L3 Switch
+# Static Routes do not have a distance value set
+# Default Routes are when the first IP address is 0.0.0.0 and the netmask is also 0.0.0.0. This results in all IP traffic being routed to the second IP.
+# Floating static routes are 0.0.0.0 0.0.0.0 x.x.x.x with a distance value set so that it's a "fallback" route.</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-R1(config)#interface g0/0/0
-R1(config-if)#ip address 192.168.1.1 255.255.255.0
-R1(config-if)#no shutdown
-					</pre>
+R1(config)#ip route 172.16.0.1 255.255.255.0 192.168.1.1 # This routes all traffic destined for the 172.16.0.1/24 network through 192.168.1.1
+R1(config)#ip route 0.0.0.0 0.0.0.0 192.168.1.1  # Routes all IP traffic through 192.168.1.1
+R1(config)#ip route 0.0.0.0 0.0.0.0 192.168.1.3 100 # Routes all IP traffic through 192.168.1.3 if no lower-cost routes are found.</pre>
                 </div>
             </div>
         </div>
