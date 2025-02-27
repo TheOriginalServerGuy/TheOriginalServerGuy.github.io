@@ -741,13 +741,13 @@ R1(config)#aaa authorization exec default group tacacs+</pre>
 		<p></p>
 	    <pre>
 # AAA Accounting
-            </pre>
+aaa accounting exec [namedAuthList] [none/start-stop/stop-only] group [radius/tacacs+] # 
+# AAA Accounting is like auditing, it logs when groups enter exec mode and other things.</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-# Nope
-                    </pre>
+R1(config)#aaa accounting exec default start-stop group tacacs+</pre>
                 </div>
             </div>
         </div>
