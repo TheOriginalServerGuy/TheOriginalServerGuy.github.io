@@ -680,8 +680,7 @@ tacacs-server key [text]                 # Sets the TACACS+ server encryption ke
 radius server [text]                     # Sets the name of a new RADIUS server Configuration
 address ipv4 [ip] {auth-port [port]}     # Sets the address of the RADIUS server and optionally setting a connection port.
 key [text]                               # Sets the server encryption key
-# The Default Port for RADIUS server connections is port 1645.
-            </pre>
+# The Default Port for RADIUS server connections is port 1645.</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
@@ -700,17 +699,16 @@ R1(config-radius-server)#address ipv4 192.168.1.1
 R1(config-radius-server)#key SecureKey!
  WARNING: Command has been added to the configuration using a type 0 password. However, type 0 passwords will soon be deprecated. Migrate to a supported password type
 *Feb 27 09:16:40.429: %AAAA-4-CLI_DEPRECATED: WARNING: Command has been added to the configuration using a type 0 password. However, type 0 passwords will soon be deprecated. Migrate to a supported password type
-R1(config-radius-server)#exit
-                    </pre>
+R1(config-radius-server)#exit</pre>
                 </div>
             </div>
+		<p></p>
 	    <pre>
 # AAA Authentication
-aaa authentication login [namedAuthList] none/local/group {radius/tacacas+}       # Sets AAA login options either locally or through RADIUS/TACACS+
+aaa authentication login [namedAuthList] none/local/group {radius/tacacas+}     # Sets AAA login options either locally or through RADIUS/TACACS+
 # The None keyword disables authentication, allowing anyone from that group to access that line.
 # In any config line (Console, vty)
-login authentication [namedAuthList]                                              # Applies that group to the line, requiring authentication when attempting to access it.
-            </pre>
+login authentication [namedAuthList]                                            # Applies a group to the line, requiring authentication based on that group's configuration</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
@@ -723,21 +721,24 @@ R1(config-line)#line vty 0 4
 R1(config-line)#login authentication default
 ! In this example, the 0-4 VTY lines represent SSH.
 ! Users attempting to log in through SSH will be authenticated by the TACACS+ server.
-! Users on the router itself will be allowed to bypass authentication
-                    </pre>
+! Users on the router itself will be allowed to bypass authentication</pre>
                 </div>
             </div>
+		<p></p>
 	    <pre>
 # AAA Authorization
-            </pre>
+aaa authorization [exec/network] [namedAuthList] [local/if-authenticated/group] {radius/tacacs+}  # Sets the permissions of users by limiting what they can do.
+# Exec controls whether a user can enter a privledged EXEC shell
+# Network is for network services, like PPP (Point-to-Point Protocol)</pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-# Nope
-                    </pre>
+R1(config)#aaa authorization exec default local
+R1(config)#aaa authorization exec default group tacacs+</pre>
                 </div>
             </div>
+		<p></p>
 	    <pre>
 # AAA Accounting
             </pre>
