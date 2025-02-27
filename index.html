@@ -702,7 +702,6 @@ R1(config-radius-server)#key SecureKey!
 R1(config-radius-server)#exit</pre>
                 </div>
             </div>
-		
 	    <pre>
 # AAA Authentication
 aaa authentication login [namedAuthList] none/local/group {radius/tacacas+}     # Sets AAA login options either locally or through RADIUS/TACACS+
@@ -724,7 +723,6 @@ R1(config-line)#login authentication default
 ! Users on the router itself will be allowed to bypass authentication</pre>
                 </div>
             </div>
-		
 	    <pre>
 # AAA Authorization
 aaa authorization [exec/network] [namedAuthList] [local/if-authenticated/group] {radius/tacacs+}  # Sets the permissions of users by limiting what they can do.
@@ -738,7 +736,6 @@ R1(config)#aaa authorization exec default local
 R1(config)#aaa authorization exec default group tacacs+</pre>
                 </div>
             </div>
-		
 	    <pre>
 # AAA Accounting
 aaa accounting exec [namedAuthList] [none/start-stop/stop-only] group [radius/tacacs+] # 
@@ -753,63 +750,48 @@ R1(config)#aaa accounting exec default start-stop group tacacs+</pre>
         </div>
     </div>
       <div class="dropdown">
-        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-header">Securing Devices</div>
         <div class="dropdown-content">
             <pre>
-# Placeholder Content for Advanced Section
-# Replace these commands later!
-advanced-sample-command
+# later
             </pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-# Example scenario for Advanced Placeholder:
-object network obj_advanced
-  subnet 10.10.0.0 255.255.255.0
-advanced-sample-apply
+# Later
                     </pre>
                 </div>
             </div>
         </div>
     </div>
       <div class="dropdown">
-        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-header">Privledge Levels and Views</div>
         <div class="dropdown-content">
             <pre>
-# Placeholder Content for Advanced Section
-# Replace these commands later!
-advanced-sample-command
+# Later
             </pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-# Example scenario for Advanced Placeholder:
-object network obj_advanced
-  subnet 10.10.0.0 255.255.255.0
-advanced-sample-apply
+# Later
                     </pre>
                 </div>
             </div>
         </div>
     </div>
       <div class="dropdown">
-        <div class="dropdown-header">Advanced Sample Placeholder</div>
+        <div class="dropdown-header">Monitoring and Management</div>
         <div class="dropdown-content">
             <pre>
-# Placeholder Content for Advanced Section
-# Replace these commands later!
-advanced-sample-command
+# Later
             </pre>
             <div class="dropdown">
                 <div class="dropdown-header example-usage-header">Example Commands</div>
                 <div class="dropdown-content open">
                     <pre>
-# Example scenario for Advanced Placeholder:
-object network obj_advanced
-  subnet 10.10.0.0 255.255.255.0
-advanced-sample-apply
+# Later
                     </pre>
                 </div>
             </div>
