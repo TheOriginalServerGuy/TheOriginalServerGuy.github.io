@@ -702,7 +702,7 @@ R1(config-radius-server)#key SecureKey!
 R1(config-radius-server)#exit</pre>
                 </div>
             </div>
-		<p></p>
+		
 	    <pre>
 # AAA Authentication
 aaa authentication login [namedAuthList] none/local/group {radius/tacacas+}     # Sets AAA login options either locally or through RADIUS/TACACS+
@@ -724,7 +724,7 @@ R1(config-line)#login authentication default
 ! Users on the router itself will be allowed to bypass authentication</pre>
                 </div>
             </div>
-		<p></p>
+		
 	    <pre>
 # AAA Authorization
 aaa authorization [exec/network] [namedAuthList] [local/if-authenticated/group] {radius/tacacs+}  # Sets the permissions of users by limiting what they can do.
@@ -738,7 +738,7 @@ R1(config)#aaa authorization exec default local
 R1(config)#aaa authorization exec default group tacacs+</pre>
                 </div>
             </div>
-		<p></p>
+		
 	    <pre>
 # AAA Accounting
 aaa accounting exec [namedAuthList] [none/start-stop/stop-only] group [radius/tacacs+] # 
